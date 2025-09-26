@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>InfoCripto - Seu Hub Futurista de Criptomoedas</title>
+<link rel="stylesheet" href="code.css" />
+</head>
+<body>
+<header>
+  <div class="logo" aria-label="InfoCripto logo">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+      <path d="M8 16l8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <h1>InfoCripto</h1>
+  </div>
+  <nav role="navigation" aria-label="Navegação principal">
+    <button class="nav-btn active" data-target="start-screen" aria-controls="start-screen" aria-selected="true" role="tab">Início</button>
+    <button class="nav-btn" data-target="converter-screen" aria-controls="converter-screen" aria-selected="false" role="tab">Conversor</button>
+    <button class="nav-btn" data-target="realtime-screen" aria-controls="realtime-screen" aria-selected="false" role="tab">Criptos em Tempo Real</button>
+  </nav>
+  <div class="user-icon" id="user-icon" aria-label="Menu do usuário">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="var(--color-primary)">
+      <circle cx="12" cy="7" r="5" />
+      <path d="M12 12c-3 0-6 2-6 5v3h12v-3c0-3-3-5-6-5z" />
+    </svg>
+  </div>
+  <div id="user-dropdown" class="user-dropdown">
+    <button id="logout-btn">Sair</button>
+  </div>
+</header>
+<main>
+  <section id="start-screen" class="active" role="tabpanel" tabindex="0" aria-label="Tela inicial do InfoCripto">
+    <h2>Bem-vindo ao InfoCripto</h2>
+    <p>Seu hub futuro para navegar, converter e acompanhar criptomoedas em tempo real, com dados precisos e interface imersiva.</p>
+  </section>
+
+  <section id="converter-screen" role="tabpanel" tabindex="0" aria-label="Tela do conversor de criptomoedas">
+    <h2>Conversor de Criptomoedas</h2>
+    <div class="converter-row">
+      <input
+        type="number"
+        id="amount"
+        class="converter-input"
+        min="0"
+        step="any"
+        placeholder="Quantidade"
+        value="1"
+        aria-label="Quantidade a converter"
+      />
+      <select id="from-currency" class="converter-select" aria-label="Converter de">
+          <option value="BTC">Bitcoin (BTC)</option>
+        <option value="ETH">Ethereum (ETH)</option>
+        <option value="USDT">Tether (USDT)</option>
+        <option value="XRP">Ripple (XRP)</option>
+        <option value="LTC">Litecoin (LTC)</option>
+      </select>
+    </div>
+    <div class="converter-row" style="justify-content:center;">
+      <select id="to-currency" class="converter-select" aria-label="Converter para">
+        <option value="BTC">Bitcoin (BTC)</option>
+        <option value="ETH">Ethereum (ETH)</option>
+        <option value="USDT">Tether (USDT)</option>
+        <option value="XRP">Ripple (XRP)</option>
+        <option value="LTC">Litecoin (LTC)</option>
+      </select>
+    </div>
+    <div id="converter-result" aria-live="polite" style="margin-top:1.75rem;"></div>
+  </section>
+
+  <section id="realtime-screen" role="tabpanel" tabindex="0" aria-label="Tela de preços em tempo real das criptomoedas">
+    <h2>Criptomoedas em Tempo Real</h2>
+    <table id="crypto-table" aria-describedby="tabela de preços das criptomoedas em tempo real">
+      <thead>
+        <tr>
+          <th scope="col">Cripto</th>
+          <th scope="col">Preço (USD)</th>
+          <th scope="col">Variação 24h</th>
+          <th scope="col">Última Atualização</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dados carregados dinamicamente -->
+      </tbody>
+    </table>
+  </section>
+</main>
+<footer>
+  &copy; 2025 InfoCripto - Navegue pelo futuro das criptomoedas
+</footer>
+
+<script src="code.js"></script>
+</body>
+</html>

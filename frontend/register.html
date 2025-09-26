@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registrar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Registrar</h1>
+
+  <!-- Formulário de Registro -->
+  <form id="registerForm">
+    <label for="email">Email:</label>
+    <input type="email" id="email" required /><br />
+
+    <label for="password">Senha:</label>
+    <input type="password" id="password" required /><br />
+
+    <label for="confirmPassword">Confirmar Senha:</label>
+    <input type="password" id="confirmPassword" required /><br />
+
+    <button type="submit">Registrar</button>
+  </form>
+
+  <button id="goToLogin" class="secondary-button">Voltar para Login</button>
+  <div id="message" class="alert"></div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAogeiv7_0uDzjo76JOO0V92I1E2F3p6jY",
+      authDomain: "infocripto-5ea15.firebaseapp.com",
+      projectId: "infocripto-5ea15",
+      storageBucket: "infocripto-5ea15.firebasestorage.app",
+      messagingSenderId: "498854414565",
+      appId: "1:498854414565:web:30b9c6513eac55bc926c0c",
+      measurementId: "G-0G03ZSK1B4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const registerForm = document.getElementById("registerForm");
+    const messageDiv = document.getElementById("message");
+
+    registerForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      // Verifica se senhas coincidem
+      if (password !== confirmPassword) {
+        showMessage("As senhas não coincidem!", "error");
+        return;
+      }
+
+      // Verifica regras extras da senha
+      const regexMaiuscula = /[A-Z]/;
+      const regexEspecial = /[!@#$%^&*(),.?":{}|<>]/;
+
+      if (!regexMaiuscula.test(password)) {
+        showMessage("A senha deve conter pelo menos uma letra maiúscula.", "error");
+        return;
+      }
+      if (!regexEspecial.test(password)) {
+        showMessage("A senha deve conter pelo menos um caractere especial.", "error");
+        return;
+      }
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        showMessage("Usuário registrado com sucesso!", "success");
+
+        // Redireciona para login
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 3000);
+      } catch (error) {
+        showMessage("Erro ao registrar: " + traduzErro(error.code), "error");
+      }
+    });
+
+    function showMessage(text, type) {
+      messageDiv.textContent = text;
+      messageDiv.className = "alert " + type;
+      messageDiv.style.display = "block";
+
+      setTimeout(() => {
+        messageDiv.style.display = "none";
+      }, 4000);
+    }
+
+    function traduzErro(code) {
+      switch (code) {
+        case "auth/email-already-in-use":
+          return "Este email já está em uso.";
+        case "auth/invalid-email":
+          return "Email inválido.";
+        case "auth/weak-password":
+          return "A senha deve ter pelo menos 6 caracteres.";
+        default:
+          return "Erro inesperado. Tente novamente.";
+      }
+    }
+
+    // Botão "Voltar para Login"
+    document.getElementById("goToLogin").addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

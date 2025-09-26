@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Login</h1>
+
+  <!-- Formulário de Login -->
+  <form id="loginForm">
+    <label for="email">Email:</label>
+    <input type="email" id="email" required><br>
+
+    <label for="password">Senha:</label>
+    <input type="password" id="password" required><br>
+
+    <button type="submit">Entrar</button>
+  </form>
+
+  <button id="goToRegister" class="secondary-button">Criar Conta</button>
+
+  <div id="message" class="alert"></div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAogeiv7_0uDzjo76JOO0V92I1E2F3p6jY",
+      authDomain: "infocripto-5ea15.firebaseapp.com",
+      projectId: "infocripto-5ea15",
+      storageBucket: "infocripto-5ea15.firebasestorage.app",
+      messagingSenderId: "498854414565",
+      appId: "1:498854414565:web:30b9c6513eac55bc926c0c",
+      measurementId: "G-0G03ZSK1B4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const loginForm = document.getElementById("loginForm");
+    const messageDiv = document.getElementById("message");
+
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        showMessage("Login realizado com sucesso!", "success");
+
+        // Redireciona para site.html
+        setTimeout(() => {
+          window.location.href = "site.html";
+        }, 2000);
+      } catch (error) {
+        showMessage("Erro ao fazer login: " + traduzErro(error.code), "error");
+      }
+    });
+
+    function showMessage(text, type) {
+      messageDiv.textContent = text;
+      messageDiv.className = "alert " + type;
+      messageDiv.style.display = "block";
+
+      setTimeout(() => {
+        messageDiv.style.display = "none";
+      }, 4000);
+    }
+
+    function traduzErro(code) {
+      switch (code) {
+        case "auth/invalid-email":
+          return "Email inválido.";
+        case "auth/user-disabled":
+          return "Usuário desativado.";
+        case "auth/user-not-found":
+          return "Usuário não encontrado.";
+        case "auth/wrong-password":
+          return "Senha incorreta.";
+        default:
+          return "Erro inesperado. Tente novamente.";
+      }
+    }
+
+    // Botão "Criar Conta"
+    document.getElementById("goToRegister").addEventListener("click", () => {
+      window.location.href = "register.html";
+    });
+  </script>
+</body>
+</html>
