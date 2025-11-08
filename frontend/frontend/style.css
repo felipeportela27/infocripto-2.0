@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-bg {
+  min-height: 100vh;
+  background: url('imagem.site.png') no-repeat center center/cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  z-index: -1;
+}
+
+h1 {
+  text-align: center;
+  color: #f5a623;
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(255, 165, 0, 0.6);
+}
+
+form {
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  padding: 40px;
+  width: 350px;
+  color: #fff;
+  box-shadow: 0 0 25px rgba(255, 165, 0, 0.25);
+  animation: fadeIn 1.2s ease;
+}
+
+label {
+  display: block;
+  text-align: left;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.15);
+  color: #fff;
+  transition: 0.3s;
+}
+
+input:focus {
+  outline: none;
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 5px #f5a623;
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #ffb347, #ff8c00);
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 15px rgba(255, 165, 0, 0.6);
+}
+
+.secondary-button {
+  background: transparent;
+  border: 1px solid #ffb347;
+  color: #ffb347;
+  margin-top: 15px;
+}
+
+.secondary-button:hover {
+  background: rgba(255, 165, 0, 0.1);
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.3);
+}
+
+.alert {
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  display: none;
+  text-align: center;
+  animation: slideIn 0.6s ease;
+}
+
+.alert.success {
+  background: rgba(40, 167, 69, 0.2);
+  border: 1px solid #28a745;
+  color: #28a745;
+}
+
+.alert.error {
+  background: rgba(220, 53, 69, 0.2);
+  border: 1px solid #dc3545;
+  color: #dc3545;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

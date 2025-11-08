@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>InfoCripto - Seu Hub Futurista de Criptomoedas</title>
+<link rel="stylesheet" href="code.css" />
+</head>
+<body>
+<header>
+  <div class="logo" aria-label="InfoCripto logo">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+      <path d="M8 16l8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <h1>InfoCripto</h1>
+  </div>
+  <nav role="navigation" aria-label="Navegação principal">
+    <button class="nav-btn active" data-target="start-screen" aria-controls="start-screen" aria-selected="true" role="tab">Início</button>
+    <button class="nav-btn" data-target="converter-screen" aria-controls="converter-screen" aria-selected="false" role="tab">Conversor</button>
+    <button class="nav-btn" data-target="realtime-screen" aria-controls="realtime-screen" aria-selected="false" role="tab">Criptos em Tempo Real</button>
+    <!-- 🔥 NOVO BOTÃO DE NOTÍCIAS -->
+    <button class="nav-btn" data-target="news-screen" aria-controls="news-screen" aria-selected="false" role="tab">Notícias</button>
+  </nav>
+  <div class="user-icon" id="user-icon" aria-label="Menu do usuário">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="var(--color-primary)">
+      <circle cx="12" cy="7" r="5" />
+      <path d="M12 12c-3 0-6 2-6 5v3h12v-3c0-3-3-5-6-5z" />
+    </svg>
+  </div>
+  <div id="user-dropdown" class="user-dropdown">
+    <button id="logout-btn">Sair</button>
+  </div>
+</header>
+
+<main>
+  <!-- TELA INICIAL -->
+  <section id="start-screen" class="active" role="tabpanel" tabindex="0" aria-label="Tela inicial do InfoCripto">
+    <h2>Bem-vindo ao InfoCripto</h2>
+    <p>Seu hub futuro para navegar, converter e acompanhar criptomoedas em tempo real, com dados precisos e interface imersiva.</p>
+  </section>
+
+  <!-- CONVERSOR -->
+  <section id="converter-screen" role="tabpanel" tabindex="0" aria-label="Tela do conversor de criptomoedas">
+    <h2>Conversor de Criptomoedas</h2>
+    <div class="converter-row">
+      <input type="number" id="amount" class="converter-input" min="0" step="any" placeholder="Quantidade" value="1" aria-label="Quantidade a converter"/>
+      <select id="from-currency" class="converter-select" aria-label="Converter de">
+        <option value="USD">Dólar (USD)</option>
+        <option value="ETH">Ethereum (ETH)</option>
+        <option value="USDT">Tether (USDT)</option>
+        <option value="XRP">Ripple (XRP)</option>
+        <option value="LTC">Litecoin (LTC)</option>
+        <option value="BTC">Bitcoin (BTC)</option>
+      </select>
+    </div>
+    <div class="converter-row" style="justify-content:center;">
+      <select id="to-currency" class="converter-select" aria-label="Converter para">
+        <option value="BTC">Bitcoin (BTC)</option>
+        <option value="ETH">Ethereum (ETH)</option>
+        <option value="USDT">Tether (USDT)</option>
+        <option value="XRP">Ripple (XRP)</option>
+        <option value="LTC">Litecoin (LTC)</option>
+      </select>
+    </div>
+    <div id="converter-result" aria-live="polite" style="margin-top:1.75rem;"></div>
+  </section>
+
+  <!-- PREÇOS EM TEMPO REAL -->
+  <section id="realtime-screen" role="tabpanel" tabindex="0" aria-label="Tela de preços em tempo real das criptomoedas">
+    <h2>Criptomoedas em Tempo Real</h2>
+    <table id="crypto-table" aria-describedby="tabela de preços das criptomoedas em tempo real">
+      <thead>
+        <tr>
+          <th scope="col">Cripto</th>
+          <th scope="col">Preço (USD)</th>
+          <th scope="col">Variação 24h</th>
+          <th scope="col">Última Atualização</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dados carregados dinamicamente -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 🔥 NOVA TELA DE NOTÍCIAS -->
+  <section id="news-screen" role="tabpanel" tabindex="0" aria-label="Tela de notícias sobre criptomoedas">
+    <h2>Notícias de Criptomoedas</h2>
+    <div id="news-container">
+      <p>Carregando notícias...</p>
+     <section id="noticias" class="screen">
+  <h2>Últimas Notícias de Criptomoedas</h2>
+  <div id="news-list"></div>
+</section>
+<section id="noticias" class="screen">
+  <h2>📰 Últimas Notícias de Criptomoedas</h2>
+  <div id="news-container"></div>
+</section>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 InfoCripto - Navegue pelo futuro das criptomoedas
+</footer>
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAogeiv7_0uDzjo76JOO0V92I1E2F3p6jY",
+    authDomain: "infocripto-5ea15.firebaseapp.com",
+    projectId: "infocripto-5ea15",
+    storageBucket: "infocripto-5ea15.firebasestorage.app",
+    messagingSenderId: "498854414565",
+    appId: "1:498854414565:web:30b9c6513eac55bc926c0c",
+    measurementId: "G-0G03ZSK1B4"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  window.auth = getAuth(app);
+
+  onAuthStateChanged(window.auth, (user) => {
+    if (!user) {
+      // Usuário não logado, redirecionar para login
+      window.location.href = "index.html";
+    }
+    });
+</script>
+
+<!-- GPU.js segura e script principal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gpu.js/2.16.0/gpu-browser.min.js"></script>
+<script src="code.js"></script>
+</body>
+</html>
